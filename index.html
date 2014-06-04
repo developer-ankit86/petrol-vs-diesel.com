@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html ng-app="myApp">
+<head lang="en">
+ <title>Compare Petrol Car vs Diesel Car with Real Time Conditions</title>
+   <meta name="description" content="Confused in selecting the Car? Compare Prices for Petrol Car vs Diesel Car on the basis of there use. A application meant to give analysis which car is better petrol or diesel ">
+   <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+   <META name="keywords" content="Petrol, Diesel Compare, Expenditure, Car,Cost, Better,cost comparator,Price Calculator, Diesel vs Petrol, Petrol vs Diesel,
+   select petrol vs gasoline, select better car">
+   <meta name="author" content="Ankit Agarwal">
+   
+   
+    <script   src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+    <script   src="js/Controller.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    
+
+    <style>
+        .green{
+
+            background-color: mediumseagreen;
+        }
+        .red{
+            background-color:  red;
+        }
+        .rowLabel {
+            margin-right: -15px;
+            margin-left: -15px;
+            margin-bottom: 2px;
+        }
+        .rowField{
+            margin-right: -15px;
+            margin-left: -15px;
+            margin-bottom: 15px;
+        }
+        .rowLabel:after,.rowLabel:before,.rowField:after,.rowField:before {
+            display: table;
+            content: " ";
+        }
+        .rowField:after,.rowLabel:after{
+            clear:  both;
+        }
+  footer {
+            width: 100%;
+            background: #336699;
+            float: left;
+            margin: 0 0 0 0;
+            box-shadow: 5px 5px 10px #202020
+        }
+
+        address {
+            font-size : 16px;
+            text-align : center;
+            color: #efefef;
+            padding: 1% 0;
+            text-shadow: 1px 1px 0px #202020
+        }
+    </style>
+    <meta charset="UTF-8">
+    
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-51278979-1', 'petrol-vs-diesel.com');
+  ga('send', 'pageview');
+
+</script>
+
+
+</head>
+<body ng-controller="CompareController" style="background-image: url('images/bg.jpg');background-repeat:none;background-size: cover;">
+
+<div style="margin: 10px">
+    <div class="container" style="margin:0px auto">
+        <div class="row">
+    <div class="col-md-3 col-md-offset-1" style="margin:2px auto">
+
+    <img src="images/petrol.jpg" width="150" HEIGHT="150" alt="Petrol Details" >
+        </div>
+    <div class="col-md-3 col-md-offset-1" style="margin:2px auto">
+
+    <img src="images/diesel.jpg" width="150" HEIGHT="150" alt="Diesel Details">
+</div>
+        <div class="col-md-3 col-md-offset-1" style="margin:2px auto">
+
+            <img src="images/car_steering.jpg" width="150" HEIGHT="150" alt="Usage Details">
+        </div>
+        <div class="col-md-3 col-md-offset-1" style="margin:2px auto">
+
+            <img src="images/carloan.jpg" width="150" HEIGHT="150" alt="Loan Details">
+        </div>
+    </div>
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1" style="margin:2px auto">
+
+
+                <fieldset>
+                    <legend align="center">Petrol Car Detail</legend>
+                        <div class="rowLabel">
+                            <label for="petrolcarcost" class="col-md-12 control-label">Cost of Petrol Car</label>
+                        </div>
+                        <div class="rowField">
+                        <input type="text" class="form-control" id="petrolcarcost" placeholder="Enter Cost of Petrol car"
+                               ng-model="petrol.carcost">
+                        </div>
+
+                    <div class="rowLabel">
+                    <label for="petrolHighwayEff" class="col-md-12 control-label">Petrol Car Mileage Highway</label>
+                    </div>
+                    <div class="rowField">
+                    <input type="text" class="form-control" id="petrolHighwayEff" placeholder="Petrol Car Mileage Highway"
+                               ng-model="petrol.effHigh">
+                    </div>
+                     <div class="rowLabel">
+                    <label for="petrolLocalEff" class="col-md-12 control-label">Petrol Car Mileage City</label>
+                     </div>
+                    <div class="rowField">
+                    <input type="text" class="form-control" id="petrolLocalEff" placeholder="Petrol Car Mileage City"
+                               ng-model="petrol.effLocal">
+                    </div>
+                    <div class="rowLabel">
+                    <label for="petrolpriceperlitre" class="col-md-12 control-label">Petrol Price Per Litre</label>
+                    </div>
+                    <div class="rowField">
+                        <input type="text" class="form-control" id="petrolpriceperlitre" placeholder="Petrol Price Per Litre"
+                               ng-model="petrol.priceperunit">
+                    </div>
+                    <div class="rowLabel">
+                        <label for="petrolMaintCost" class="col-md-12 control-label">Petrol Car Maintainance Cost / Year</label>
+                    </div>
+                    <div class="rowField">
+                        <input type="text" class="form-control" id="petrolMaintCost" placeholder="Petrol Car Maintainance Annualy "
+                               ng-model="petrol.maintcost">
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="col-md-2 col-md-offset-1" >
+                <fieldset>
+                    <legend  align="center">Diesel Car Detail</legend>
+                    <div class="rowLabel">
+                        <label for="dieselcarcost" class="col-md-12 control-label">Cost of Diesel Car</label>
+                    </div>
+                    <div class="rowField">
+
+                    <input type="text" class="form-control" id="dieselcarcost" placeholder="Enter Cost of Diesel car"
+                               ng-model="diesel.carcost">
+                    </div>
+                    <div class="rowLabel">
+                    <label for="dieselHighwayEff" class="col-md-12 control-label">Diesel Car Mileage Highway</label>
+                    </div>
+                    <div class="rowField">
+
+                    <input type="text" class="form-control" id="dieselHighwayEff" placeholder="Diesel Car Mileage Highway"
+                               ng-model="diesel.effHigh">
+                    </div>
+                    <div class="rowLabel">
+                    <label for="dieselLocalEff" class="col-md-12 control-label">Diesel Car Mileage City</label>
+                    </div>
+                    <div class="rowField">
+
+                    <input type="text" class="form-control" id="dieselLocalEff" placeholder="Diesel Car Mileage City"
+                               ng-model="diesel.effLocal">
+                    </div>
+                    <div class="rowLabel">
+                    <label for="dieselpriceperlitre" class="col-md-12 control-label">Diesel Price Per Litre</label>
+                    </div>
+                    <div class="rowField">
+
+                    <input type="text" class="form-control" id="dieselpriceperlitre" placeholder="Diesel Price Per Litre"
+                               ng-model="diesel.priceperunit">
+                    </div>
+                    <div class="rowLabel">
+                    <label for="dieselMaintCost" class="col-md-12 control-label">Diesel Car Maintainance Cost / Year</label>
+                    </div>
+                    <div class="rowField">
+
+                    <input type="text" class="form-control" id="dieselMaintCost" placeholder="Diesel Car Maintainance Annualy "
+                               ng-model="diesel.maintcost">
+                    </div>
+
+                </fieldset>
+            </div>
+
+            <div class="col-md-2 col-md-offset-1">
+                <fieldset>
+                    <legend  align="center">Usage Details</legend>
+
+                    <div class="row">
+                    <div class="col-md-12">
+                        <div class="rowLabel">
+                            <label for="cityUsage" class="col-md-12 control-label">Usage in City/Month (Kms)</label>
+                        </div>
+                        <div class="rowField">
+
+                        <input type="text"  class="form-control" id="cityUsage" placeholder="Usage of Car in City Per Month in Kms"
+                                   ng-model="usage.city">
+                        </div>
+                        <div class="rowLabel">
+                        <label for="highwayUsage" class="col-md-12 control-label">Usage at Highway/Month (Kms)</label>
+                        </div>
+                        <div class="rowField">
+
+                        <input type="text"  class="form-control" id="highwayUsage" placeholder="Usage of Car at Highway Per Month in Kms"
+                                   ng-model="usage.highway">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="rowLabel">
+                            <label for="inflationPetrol" class="col-md-12 control-label">Inflation rate of petrol</label>
+                        </div>
+                        <div class="rowField">
+
+                        <input type="text"  class="form-control" id="inflationPetrol" placeholder="Rate of Inflation of petrol"
+                                   ng-model="inflation.petrol" >
+                        </div>
+                        <div class="rowLabel">
+                        <label for="inflationDiesel" class="col-md-12 control-label">Inflation rate of diesel</label>
+                        </div>
+                        <div class="rowField">
+
+                        <input type="text"  class="form-control" id="inflationDiesel" placeholder="Rate of Inflation of diesel"
+                                   ng-model="inflation.diesel">
+                        </div>
+                    </div>
+
+                </div>
+                    </fieldset>
+
+            </div>
+            <div class="col-md-2 col-md-offset-1">
+                <fieldset>
+                    <legend  align="center">Loan Details</legend>
+
+                    <div class="rowLabel">
+                    <label for="principalAmountCar1" class="col-md-12 control-label">Loan Amount for Petrol Car</label>
+                </div>
+                <div class="rowField">
+
+                    <input type="text" class="form-control" id="principalAmountCar1" placeholder="Loan Amount for Petrol Car"
+                           ng-model="loan.amtpetrol">
+                </div>
+                <div class="rowLabel">
+                    <label for="principalAmountCar2" class="col-md-12 control-label">Loan Amount for Diesel Car</label>
+                </div>
+                <div class="rowField">
+
+                    <input type="text" class="form-control" id="principalAmountCar2" placeholder="Loan Amount for Diesel Car"
+                           ng-model="loan.amtdiesel">
+                </div>
+                <div class="rowLabel">
+                    <label for="interestRate" class="col-md-12 control-label">Interest Rate (%)</label>
+                </div>
+                <div class="rowField">
+
+                    <input type="text" class="form-control" id="interestRate" placeholder="Interest Rate"
+                           ng-model="loan.rate">
+                </div>
+                <div class="rowLabel">
+                    <label for="duration" class="col-md-12 control-label">Duration</label>
+                </div>
+                <div class="rowField">
+
+                    <form class="form-inline" style="float:right;">
+                        <input type="text"  class="form-control" id="duration" placeholder="Duration" ng-model="loan.duration"
+                               maxlength="2" style="width:40%;padding: 2px;">
+                        <select class="form-control" style="width: 40%"  ng-model="loan.durtype"><option>Years</option><option>Months</option></select>
+
+
+                    </form>
+                </div>
+                </fieldset>
+            </div>
+
+        </div>
+
+        <div class="row">
+        <div align="center">
+
+            <button type="submit" class="btn btn-primary btn-lg btn-block"   style="align-content: center"
+                    ng-click="compare()">Compare</button>
+        </div>
+        </div>
+   <br>
+        <div class="row">
+        <div ng-show="showResult" class="container">
+            <div class="col-md-12">
+                <table class="table" border="1">
+                    <tr class="row" style="background-color:  wheat">
+                        <th>Year Number</th>
+                        <th>Maintenance Cost(Petrol)</th>
+                        <th>Maintenance Cost(Diesel)</th>
+                        <th>Total Loan Expenditure (Petrol)</th>
+                        <th>Total Loan Expenditure (Diesel)</th>
+                        <th>Total Fuel Cost (Petrol)</th>
+                        <th>Total Fuel Cost (Diesel)</th>
+                        <th>Total Expenditure (Petrol)</th>
+                        <th>Total Expenditure (Diesel)</th>
+                        <th>Total Profit (Petrol)</th>
+                        <th>Total Profit (Diesel)</th>
+
+                    </tr>
+
+
+                        <tr class="row"  ng-repeat=" result in compareVal track by $index" style="{{result.rowStyle}}">
+                            <td>
+                                {{result.year}}
+                            </td>
+                            <td>
+                                {{result.totalMaintPetrolCost}}
+                            </td>
+                            <td>
+                                {{result.totalMainDieselCost}}
+                            </td>
+                            <td>
+                                {{result.totalLoanPCost}}
+                            </td>
+                            <td>
+                                {{result.totalLoanDCost}}
+                            </td>
+                            <td>
+                                {{result.totalPetrolFueCost}}
+                            </td>
+                            <td >
+                                {{result.totalDieselFuelCost}}
+                            </td>
+                            <td >
+                                {{result.totalPCost}}
+                            </td>
+                            <td >
+                                {{result.totalDCost}}
+                            </td>
+                            <td >
+                                {{result.profitsumP}}
+                            </td>
+                            <td >
+                                {{result.profitsumD}}
+                            </td>
+
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+            </div>
+    </div>
+    <div ng-show="showResult" class="container" >
+       <h1> <p class="bg-success" align=" center">{{final1.result1}}</p></h1>
+
+    </div>
+    <div>
+    <p  class="container"><b> Simple tool to calculate the total expenditure on petrol car vs diesel car. As petrol prices are higher then diesel. We think that having a diesel car is more beneficial, but the reality can be checked here. All the calculations being done are in the real time conditions looking at the inflation of petrol and the increase in the service and maintainance cost</b></p>
+    </div>
+</div>
+
+        </div>
+
+<footer>
+    <address>&copy; Copyright 2014 All Rights Reserved www.petrol-vs-diesel.com</address>
+</footer>
+    </div>
+
+</div>
+
+</body>
+</html>
